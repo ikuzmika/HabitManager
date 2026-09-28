@@ -1,101 +1,71 @@
-﻿using HabitManager.Domain;
-using HabitManager.DataModels;
+﻿using HabitManager.Console;
+using HabitManager.Domain;
 
-Habit habit = new Habit(
-    "demo-user-1",
-    "Read for 20 minutes",
-    "In the evening before bed");
-
-Console.WriteLine($"Habit ID: {habit.Id}");
-Console.WriteLine($"User: {habit.UserId}");
-Console.WriteLine($"Name: {habit.Name}");
-Console.WriteLine($"Description: {habit.Description}");
-Console.WriteLine($"Status: {habit.Status}");
-Console.WriteLine($"Created at: {habit.CreatedAt}");
-
-Console.WriteLine("\nAfter update:");
-habit.Update(
-    "Read for 30 minutes",
-    "After breakfast before work");
-Console.WriteLine($"Name: {habit.Name}");
-Console.WriteLine($"Description: {habit.Description}");
-Console.WriteLine($"Updated at: {habit.UpdatedAt}");
-
-Console.WriteLine("\nAfter archivation:");
-habit.Archive();
-Console.WriteLine($"Name: {habit.Name}");
-Console.WriteLine($"Status: {habit.Status}");
-Console.WriteLine($"Updated at: {habit.UpdatedAt}");
-
-Console.WriteLine("\nCompletion test:");
-Habit musicHabit = new Habit(
-    "demo-user-1",
-    "Listen to 3 new songs by EXO",
-    "");
 DateOnly today = DateOnly.FromDateTime(DateTime.Today);
-Console.WriteLine($"Before: {musicHabit.IsCompletedOn(today)}");
-musicHabit.Complete(today);
-Console.WriteLine($"After: {musicHabit.IsCompletedOn(today)}");
-Console.WriteLine($"Number of completed records: {musicHabit.Completions.Count} ");
+List<Habit> habits = TestDataFactory.Create(today);
 
-Console.WriteLine("\nSchedule test:");
-Habit walkingHabit = new Habit(
-    "demo-user-2",
-    "Walking",
-    "Walking in nearby park");
-DateOnly friday = new DateOnly(2026, 09, 25);
-DateOnly wednesday = new DateOnly(2026, 09, 30);
-Console.WriteLine($"Original schedule: {walkingHabit.Schedule.Type}");
-Console.WriteLine(
-    $"Is walking scheduled for wednesday: {walkingHabit.Schedule.IsScheduledOn(wednesday)}"); // Ieradums atkartojas katru dienu, tāpēc trešdienā ir atkartojums
-HabitSchedule walkingSchedule = new HabitSchedule(
-[
-    DayOfWeek.Friday,
-    DayOfWeek.Monday
-]);
-walkingHabit.ChangeSchedule(walkingSchedule);
-Console.WriteLine($"New schedule: {walkingHabit.Schedule.Type}");
-Console.WriteLine($"Is walking scheduled for friday: {walkingHabit.Schedule.IsScheduledOn(friday)}");
-Console.WriteLine(
-    $"Is walking scheduled for wednesday: {walkingHabit.Schedule.IsScheduledOn(wednesday)}"); // Grafikā ir tikai piektdiena un pirmdiena, trešdienā ieradums nav ieplanots
+Console.WriteLine("Habit Manager");
+Console.WriteLine($"Today: {today:dd.MM.yyyy}");
+Console.WriteLine($"Total number of habits: {habits.Count}");
 
+List<string> userIds = [];
 
-Console.WriteLine($"\nData models test:");
-CreateHabitRequest request = new CreateHabitRequest
+foreach (Habit habit in habits)
 {
-    UserId = "demo-user-3",
-    Name = "Watch movie with family",
-    Description = "The Batman movie",
-};
-
-Habit languageHabit = new Habit(
-    request.UserId,
-    request.Name,
-    request.Description);
-
-HabitSchedule requestSchedule =
-    request.Schedule.IsDaily ? new HabitSchedule() : new HabitSchedule(request.Schedule.Days);
-
-languageHabit.ChangeSchedule(requestSchedule);
-
-HabitDto habitDto = new HabitDto
-{
-    Id = languageHabit.Id,
-    UserId = languageHabit.UserId,
-    Name = languageHabit.Name,
-    Description = languageHabit.Description,
-    IsArchived = languageHabit.Status == HabitStatus.Archived,
-    CreatedAt = languageHabit.CreatedAt,
-    UpdatedAt = languageHabit.UpdatedAt,
-
-    Schedule = new HabitScheduleDto
+    if (!userIds.Contains(habit.UserId))
     {
-        IsDaily = languageHabit.Schedule.Type == HabitScheduleType.Daily,
-        Days = new List<DayOfWeek>(languageHabit.Schedule.Days)
+        userIds.Add(habit.UserId);
     }
-};
+}
 
-Console.WriteLine($"Name: {habitDto.Name}");
-Console.WriteLine($"User: {habitDto.UserId}");
-Console.WriteLine($"Archived: {habitDto.IsArchived}");
-Console.WriteLine($"Daily: {habitDto.Schedule.IsDaily}");
+Console.WriteLine($"Users: {string.Join(", ", userIds)}");
+
+foreach (string userId in userIds)
+{
+    Console.WriteLine($"\nUser {userId}");
+
+    foreach (Habit habit in habits)
+    {
+        if (habit.UserId != userId)
+        {
+            continue;
+        }
+
+        string statusText = habit.Status == HabitStatus.Active ? "Active" : "Archived";
+
+        string completedText = habit.IsCompletedOn(today) ? "Yes" : "No";
+
+        Console.WriteLine($"Habit: {habit.Name}");
+        Console.WriteLine($"Description: {habit.Description}");
+        Console.WriteLine($"Status: {statusText}");
+        Console.WriteLine($"Completed today?: {completedText}");
+
+        Console.WriteLine(habit.Schedule.Type == HabitScheduleType.Daily
+            ? "Schedule: Daily"
+            : $"Schedule: {string.Join(", ", habit.Schedule.Days)}");
+
+        Console.WriteLine($"Number of completed records: {habit.Completions.Count}");
+
+        foreach (HabitCompletion completion in habit.Completions)
+        {
+            Console.WriteLine($" - {completion.Date:dd.MM.yyyy}");
+        }
+
+        Console.WriteLine();
+    }
+}
+
+Console.WriteLine("\nExample of completing habit:");
+
+foreach (Habit habit in habits)
+{
+    if (habit.Status == HabitStatus.Active && !habit.IsCompletedOn(today))
+    {
+        Console.WriteLine($"Habit: {habit.Name}");
+        Console.WriteLine($"Is it complete: {habit.IsCompletedOn(today)}");
+        habit.Complete(today);
+        Console.WriteLine($"Is it complete now: {habit.IsCompletedOn(today)}");
+
+        break;
+    }
+}

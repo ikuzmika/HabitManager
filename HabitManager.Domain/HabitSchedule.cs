@@ -1,5 +1,9 @@
 ﻿namespace HabitManager.Domain;
 
+/*
+ * Kods tika veidots konsultējoties ar MI
+ */
+
 public class HabitSchedule
 {
     private readonly List<DayOfWeek> _days = [];

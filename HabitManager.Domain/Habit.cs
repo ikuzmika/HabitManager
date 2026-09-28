@@ -1,5 +1,9 @@
 ﻿namespace HabitManager.Domain;
 
+/*
+ * Kods tika veidots konsultējoties ar MI
+ */
+
 public class Habit
 {
     private readonly List<HabitCompletion> _completions = [];

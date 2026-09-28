@@ -9,3 +9,4 @@ C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.DataModels\obj\Debug\net1
 C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.DataModels\obj\Debug\net10.0\refint\HabitManager.DataModels.dll
 C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.DataModels\obj\Debug\net10.0\HabitManager.DataModels.pdb
 C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.DataModels\obj\Debug\net10.0\ref\HabitManager.DataModels.dll
+C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.DataModels\obj\Debug\net10.0\HabitManager.DataModels.sourcelink.json
