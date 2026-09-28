@@ -9,3 +9,4 @@ C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.Domain\obj\Debug\net10.0\
 C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.Domain\obj\Debug\net10.0\refint\HabitManager.Domain.dll
 C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.Domain\obj\Debug\net10.0\HabitManager.Domain.pdb
 C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.Domain\obj\Debug\net10.0\ref\HabitManager.Domain.dll
+C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.Domain\obj\Debug\net10.0\HabitManager.Domain.sourcelink.json

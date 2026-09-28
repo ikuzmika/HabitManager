@@ -1,7 +1,7 @@
 ﻿namespace HabitManager.Domain;
 
 /*
- * Kods tika veidots konsultējoties ar MI
+ * Kods tika veidots konsultējoties ar MI (ChatGPT)
  */
 
 public class HabitSchedule

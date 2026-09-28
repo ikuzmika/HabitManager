@@ -1,6 +1,10 @@
 ﻿using HabitManager.Console;
 using HabitManager.Domain;
 
+/*
+ * Kods tika veidots konsultējoties ar MI (ChatGPT)
+ */
+
 DateOnly today = DateOnly.FromDateTime(DateTime.Today);
 List<Habit> habits = TestDataFactory.Create(today);
 

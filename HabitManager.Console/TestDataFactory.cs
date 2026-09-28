@@ -2,7 +2,7 @@
 namespace HabitManager.Console;
 
 /*
- * Kods tika veidots konsultējoties ar MI
+ * Kods tika veidots konsultējoties ar MI (ChatGPT)
  */
 
 public static class TestDataFactory
@@ -10,7 +10,7 @@ public static class TestDataFactory
     public static List<Habit> Create(DateOnly today)
     {
         string firstUserId = "demo-user-1";
-        string seconduserId = "demo-user-2";
+        string secondUserId = "demo-user-2";
 
         Habit reading = new Habit(
             firstUserId,
@@ -29,7 +29,7 @@ public static class TestDataFactory
         walking.Complete(today.AddDays(-1));
 
         Habit language = new Habit(
-            seconduserId,
+            secondUserId,
             "Learning korean",
             "Memorising at leat 4 new words");
         
@@ -37,14 +37,14 @@ public static class TestDataFactory
         language.Archive();
         
         Habit listening = new Habit(
-            seconduserId,
+            secondUserId,
             "Listen to 3 new songs by EXO",
             "");
         
         listening.Complete(today.AddDays(-1));
 
         Habit movie = new Habit(
-            seconduserId,
+            secondUserId,
             "Watch movie with family",
             "One of Marvel movie");
         
