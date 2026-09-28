@@ -1,0 +1,11 @@
+C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.DataModels\bin\Debug\net10.0\HabitManager.DataModels.deps.json
+C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.DataModels\bin\Debug\net10.0\HabitManager.DataModels.dll
+C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.DataModels\bin\Debug\net10.0\HabitManager.DataModels.pdb
+C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.DataModels\obj\Debug\net10.0\HabitManager.DataModels.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.DataModels\obj\Debug\net10.0\HabitManager.DataModels.AssemblyInfoInputs.cache
+C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.DataModels\obj\Debug\net10.0\HabitManager.DataModels.AssemblyInfo.cs
+C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.DataModels\obj\Debug\net10.0\HabitManager.DataModels.csproj.CoreCompileInputs.cache
+C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.DataModels\obj\Debug\net10.0\HabitManager.DataModels.dll
+C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.DataModels\obj\Debug\net10.0\refint\HabitManager.DataModels.dll
+C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.DataModels\obj\Debug\net10.0\HabitManager.DataModels.pdb
+C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.DataModels\obj\Debug\net10.0\ref\HabitManager.DataModels.dll
