@@ -29,24 +29,12 @@ public class Habit
             throw new ArgumentException(
                 "The habit must be linked to the user.");
         }
-
-        if (string.IsNullOrWhiteSpace(name))
-        {
-            throw new ArgumentException(
-                "The habit name must not be left blank.");
-        }
         
-        string trimmedName = name.Trim();
-
-        if (trimmedName.Length > 200)
-        {
-            throw new ArgumentException(
-                "The habit name must not be longer than 200 characters.");
-        }
+        string validName = ValidateName(name);
         
         Id = Guid.NewGuid();
         UserId = userId;
-        Name = trimmedName;
+        Name = validName;
         Description = description;
         Status = HabitStatus.Active;
         CreatedAt = DateTimeOffset.UtcNow;
@@ -59,21 +47,9 @@ public class Habit
     
     public void Update(string name, string? description) // Metode priekš ieraduma labošanas
     {
-        if (string.IsNullOrWhiteSpace(name))
-        {
-            throw new ArgumentException(
-                "The habit name must not be left blank.");
-        }
+        string validName = ValidateName(name);
         
-        string trimmedName = name.Trim();
-
-        if (trimmedName.Length > 200)
-        {
-            throw new ArgumentException(
-                "The habit name must not be longer than 200 characters.");
-        }
-        
-        Name = trimmedName;
+        Name = validName;
         Description = description;
         UpdatedAt = DateTimeOffset.UtcNow;
     }
@@ -106,7 +82,6 @@ public class Habit
         HabitCompletion completion = new HabitCompletion(Id, date);
         
         _completions.Add(completion);
-        UpdatedAt = DateTimeOffset.UtcNow;
     }
 
     public bool IsCompletedOn(DateOnly date) // Metode, lai pārbaudītu ieraduma izpildes datumu
@@ -126,5 +101,24 @@ public class Habit
     {
         Schedule = schedule ?? throw new ArgumentNullException(nameof(schedule));
         UpdatedAt = DateTimeOffset.UtcNow;
+    }
+
+    private string ValidateName(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            throw new ArgumentException(
+                "The habit name must not be left blank.");
+        }
+        
+        string trimmedName = name.Trim();
+
+        if (trimmedName.Length > 200)
+        {
+            throw new ArgumentException(
+                "The habit name must not be longer than 200 characters.");
+        }
+        
+        return trimmedName;
     }
 }

@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v10.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v10.0": {
+      "HabitManager.TestData/1.0.0": {
+        "dependencies": {
+          "HabitManager.Domain": "1.0.0"
+        },
+        "runtime": {
+          "HabitManager.TestData.dll": {}
+        }
+      },
+      "HabitManager.Domain/1.0.0": {
+        "runtime": {
+          "HabitManager.Domain.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "HabitManager.TestData/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "HabitManager.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

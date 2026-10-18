@@ -1,0 +1,16 @@
+C:\Users\ikuzm\RiderProjects\HabitManager\TestData\bin\Debug\net10.0\TestData.deps.json
+C:\Users\ikuzm\RiderProjects\HabitManager\TestData\bin\Debug\net10.0\TestData.dll
+C:\Users\ikuzm\RiderProjects\HabitManager\TestData\bin\Debug\net10.0\TestData.pdb
+C:\Users\ikuzm\RiderProjects\HabitManager\TestData\bin\Debug\net10.0\HabitManager.Domain.dll
+C:\Users\ikuzm\RiderProjects\HabitManager\TestData\bin\Debug\net10.0\HabitManager.Domain.pdb
+C:\Users\ikuzm\RiderProjects\HabitManager\TestData\obj\Debug\net10.0\TestData.csproj.AssemblyReference.cache
+C:\Users\ikuzm\RiderProjects\HabitManager\TestData\obj\Debug\net10.0\TestData.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ikuzm\RiderProjects\HabitManager\TestData\obj\Debug\net10.0\TestData.AssemblyInfoInputs.cache
+C:\Users\ikuzm\RiderProjects\HabitManager\TestData\obj\Debug\net10.0\TestData.AssemblyInfo.cs
+C:\Users\ikuzm\RiderProjects\HabitManager\TestData\obj\Debug\net10.0\TestData.csproj.CoreCompileInputs.cache
+C:\Users\ikuzm\RiderProjects\HabitManager\TestData\obj\Debug\net10.0\TestData.sourcelink.json
+C:\Users\ikuzm\RiderProjects\HabitManager\TestData\obj\Debug\net10.0\TestData.csproj.Up2Date
+C:\Users\ikuzm\RiderProjects\HabitManager\TestData\obj\Debug\net10.0\TestData.dll
+C:\Users\ikuzm\RiderProjects\HabitManager\TestData\obj\Debug\net10.0\refint\TestData.dll
+C:\Users\ikuzm\RiderProjects\HabitManager\TestData\obj\Debug\net10.0\TestData.pdb
+C:\Users\ikuzm\RiderProjects\HabitManager\TestData\obj\Debug\net10.0\ref\TestData.dll

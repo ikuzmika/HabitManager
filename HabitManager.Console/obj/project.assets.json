@@ -21,6 +21,19 @@
         "runtime": {
           "bin/placeholder/HabitManager.Domain.dll": {}
         }
+      },
+      "HabitManager.TestData/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v10.0",
+        "dependencies": {
+          "HabitManager.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/HabitManager.TestData.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/HabitManager.TestData.dll": {}
+        }
       }
     }
   },
@@ -34,16 +47,23 @@
       "type": "project",
       "path": "../HabitManager.Domain/HabitManager.Domain.csproj",
       "msbuildProject": "../HabitManager.Domain/HabitManager.Domain.csproj"
+    },
+    "HabitManager.TestData/1.0.0": {
+      "type": "project",
+      "path": "../HabitManager.TestData/HabitManager.TestData.csproj",
+      "msbuildProject": "../HabitManager.TestData/HabitManager.TestData.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net10.0": [
       "HabitManager.DataModels >= 1.0.0",
-      "HabitManager.Domain >= 1.0.0"
+      "HabitManager.Domain >= 1.0.0",
+      "HabitManager.TestData >= 1.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ikuzm\\.nuget\\packages\\": {}
+    "C:\\Users\\ikuzm\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
@@ -54,13 +74,20 @@
       "packagesPath": "C:\\Users\\ikuzm\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\ikuzm\\RiderProjects\\HabitManager\\HabitManager.Console\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\ikuzm\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\ikuzm\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net10.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -73,6 +100,9 @@
             },
             "C:\\Users\\ikuzm\\RiderProjects\\HabitManager\\HabitManager.Domain\\HabitManager.Domain.csproj": {
               "projectPath": "C:\\Users\\ikuzm\\RiderProjects\\HabitManager\\HabitManager.Domain\\HabitManager.Domain.csproj"
+            },
+            "C:\\Users\\ikuzm\\RiderProjects\\HabitManager\\HabitManager.TestData\\HabitManager.TestData.csproj": {
+              "projectPath": "C:\\Users\\ikuzm\\RiderProjects\\HabitManager\\HabitManager.TestData\\HabitManager.TestData.csproj"
             }
           }
         }
@@ -109,7 +139,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Users\\ikuzm\\.dotnet\\sdk\\10.0.401/PortableRuntimeIdentifierGraph.json",
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.401/PortableRuntimeIdentifierGraph.json",
         "packagesToPrune": {
           "Microsoft.CSharp": "(,4.7.32767]",
           "Microsoft.VisualBasic": "(,10.4.32767]",

@@ -9,7 +9,8 @@
       "HabitManager.Console/1.0.0": {
         "dependencies": {
           "HabitManager.DataModels": "1.0.0",
-          "HabitManager.Domain": "1.0.0"
+          "HabitManager.Domain": "1.0.0",
+          "HabitManager.TestData": "1.0.0"
         },
         "runtime": {
           "HabitManager.Console.dll": {}
@@ -30,6 +31,17 @@
             "fileVersion": "1.0.0.0"
           }
         }
+      },
+      "HabitManager.TestData/1.0.0": {
+        "dependencies": {
+          "HabitManager.Domain": "1.0.0"
+        },
+        "runtime": {
+          "HabitManager.TestData.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
       }
     }
   },
@@ -45,6 +57,11 @@
       "sha512": ""
     },
     "HabitManager.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "HabitManager.TestData/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

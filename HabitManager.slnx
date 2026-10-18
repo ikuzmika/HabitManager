@@ -1,5 +1,7 @@
 <Solution>
+  <Project Path="HabitManager.App/HabitManager.App.csproj" />
   <Project Path="HabitManager.Console/HabitManager.Console.csproj" />
   <Project Path="HabitManager.DataModels/HabitManager.DataModels.csproj" />
   <Project Path="HabitManager.Domain/HabitManager.Domain.csproj" />
+  <Project Path="HabitManager.TestData/HabitManager.TestData.csproj" />
 </Solution>

@@ -1,5 +1,5 @@
-﻿using HabitManager.Console;
-using HabitManager.Domain;
+﻿using HabitManager.Domain;
+using HabitManager.TestData;
 
 /*
  * Kods tika veidots konsultējoties ar MI (ChatGPT)

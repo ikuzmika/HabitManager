@@ -19,3 +19,5 @@ C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.Console\obj\Debug\net10.0
 C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.Console\obj\Debug\net10.0\HabitManager.Console.genruntimeconfig.cache
 C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.Console\obj\Debug\net10.0\ref\HabitManager.Console.dll
 C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.Console\obj\Debug\net10.0\HabitManager.Console.sourcelink.json
+C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.Console\bin\Debug\net10.0\HabitManager.TestData.dll
+C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.Console\bin\Debug\net10.0\HabitManager.TestData.pdb
