@@ -1,4 +1,5 @@
 ﻿using HabitManager.App.ViewModels;
+using Microsoft.Maui.Controls.Shapes;
 
 namespace HabitManager.App.Views;
 
@@ -88,4 +89,72 @@ public partial class HabitListPage : ContentPage
     {
         await Navigation.PushAsync(new ArchivedHabitsPage());
     }
+    
+    private void OnPageLayoutSizeChanged(object? sender, EventArgs e)
+    {
+        if (HeaderGrid == null ||
+            HeaderTitle == null ||
+            HeaderActions == null ||
+            HabitsGridLayout == null)
+        {
+            return;
+        }
+
+        double availableWidth =
+            PageLayout.Width -
+            PageLayout.Padding.Left -
+            PageLayout.Padding.Right;
+
+        if (availableWidth <= 0)
+        {
+            return;
+        }
+        
+        int columns = availableWidth >= 640 ? 2 : 1;
+
+        if (HabitsGridLayout.Span != columns)
+        {
+            HabitsGridLayout.Span = columns;
+        }
+        
+        if (availableWidth < 600)
+        {
+            Grid.SetColumnSpan(HeaderTitle, 2);
+
+            Grid.SetRow(HeaderActions, 1);
+            Grid.SetColumn(HeaderActions, 0);
+            Grid.SetColumnSpan(HeaderActions, 2);
+        }
+        else
+        {
+            Grid.SetColumnSpan(HeaderTitle, 1);
+
+            Grid.SetRow(HeaderActions, 0);
+            Grid.SetColumn(HeaderActions, 1);
+            Grid.SetColumnSpan(HeaderActions, 1);
+        }
+    }
+    
+    private void OnHabitPointerEntered(object? sender, PointerEventArgs e)
+    {
+        if (sender is Border card)
+        {
+            card.SetAppThemeColor(
+                VisualElement.BackgroundColorProperty,
+                Color.FromArgb("#FFFFFF"),
+                Color.FromArgb("#35303F"));
+        }
+    }
+
+    private void OnHabitPointerExited(object? sender, PointerEventArgs e)
+    {
+        if (sender is Border card)
+        {
+            card.SetAppThemeColor(
+                VisualElement.BackgroundColorProperty,
+                Color.FromArgb("#F8F6FC"),
+                Color.FromArgb("#25222D"));
+        }
+    }
+    
 }

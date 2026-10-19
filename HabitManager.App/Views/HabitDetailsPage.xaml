@@ -1,58 +1,121 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewModels="clr-namespace:HabitManager.App.ViewModels"
+    xmlns:controls="using:HabitManager.App.Controls"
     x:Class="HabitManager.App.Views.HabitDetailsPage"
     x:DataType="viewModels:HabitDetailsViewModel"
     Title="Habit details">
+    
+    <ContentPage.ToolbarItems>
+        <controls:ThemeToolbarItem />
+    </ContentPage.ToolbarItems>
 
     <ScrollView>
-        <VerticalStackLayout Padding="20"
-                             Spacing="12">
+        <VerticalStackLayout
+            Padding="24"
+            Spacing="20">
 
             <Label
                 Text="{Binding SelectedHabit.Name}"
                 FontSize="28"
                 FontAttributes="Bold" />
 
-            <Label
-                Text="Description"
-                FontAttributes="Bold" />
+            <Border
+                Padding="20"
+                StrokeThickness="1"
+                Stroke="{AppThemeBinding Light=#E3DFED,
+                                         Dark=#45404F}"
+                BackgroundColor="{AppThemeBinding Light=#F8F6FC,
+                                                  Dark=#25222D}">
 
-            <Label
-                Text="{Binding SelectedHabit.Description}" />
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
 
-            <Label
-                Text="Completed today"
-                FontAttributes="Bold" />
+                <VerticalStackLayout Spacing="18">
 
-            <Label
-                Text="{Binding CompletedToday}" />
-            
-            <Button
-                Text="{Binding CompletionButtonText}"
-                Command="{Binding CompleteTodayCommand}" />
-            
-            <Label
-                Text="Status"
-                FontAttributes="Bold" />
+                    <VerticalStackLayout Spacing="6">
+                        <Label
+                            Text="Description"
+                            FontAttributes="Bold" />
 
-            <Label
-                Text="{Binding StatusText}" />
+                        <Label
+                            Text="{Binding SelectedHabit.Description}"
+                            LineBreakMode="WordWrap" />
+                    </VerticalStackLayout>
 
-            <Button
-                Text="Archive"
-                Command="{Binding ArchiveCommand}" />
+                    <VerticalStackLayout Spacing="6">
+                        <Label
+                            Text="Completed today"
+                            FontAttributes="Bold" />
 
-            <Button
-                Text="Edit"
-                Clicked="OnEditClicked" />
-            
+                        <Label Text="{Binding CompletedToday}" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="6">
+                        <Label
+                            Text="Status"
+                            FontAttributes="Bold" />
+
+                        <Label Text="{Binding StatusText}" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="6">
+                        <Label
+                            Text="Created (UTC)"
+                            FontAttributes="Bold" />
+
+                        <Label
+                            Text="{Binding SelectedHabit.CreatedAt,
+                                           StringFormat='{0:dd.MM.yyyy HH:mm}'}" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout Spacing="6">
+                        <Label
+                            Text="Last edited (UTC)"
+                            FontAttributes="Bold" />
+
+                        <Label
+                            Text="{Binding SelectedHabit.UpdatedAt,
+                                           StringFormat='{0:dd.MM.yyyy HH:mm}'}" />
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+            </Border>
+
+            <FlexLayout
+                Direction="Row"
+                Wrap="Wrap"
+                JustifyContent="Start"
+                AlignItems="Center"
+                AlignContent="Start">
+
+                <Button
+                    Text="{Binding CompletionButtonText}"
+                    Command="{Binding CompleteTodayCommand}"
+                    Margin="0,0,10,10" />
+
+                <Button
+                    Text="Edit"
+                    Clicked="OnEditClicked"
+                    IsEnabled="{Binding CanEdit}"
+                    Margin="0,0,10,10" />
+
+                <Button
+                    Text="Archive"
+                    Command="{Binding ArchiveCommand}"
+                    Margin="0,0,10,10" />
+
+            </FlexLayout>
+
             <Label
                 Text="{Binding ErrorMessage}"
-                TextColor="Red" />
+                TextColor="{AppThemeBinding Light=#B42318,
+                                            Dark=#FF9B91}" />
+
         </VerticalStackLayout>
     </ScrollView>
 

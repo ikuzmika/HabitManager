@@ -7,7 +7,7 @@
     Title="HabitManager">
 
     <ShellContent
-        Title="My habits"
+        Title="MyHabits"
         ContentTemplate="{DataTemplate views:HabitListPage}"
         Route="HabitListPage" />
 

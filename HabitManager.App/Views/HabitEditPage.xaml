@@ -4,9 +4,14 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewModels="clr-namespace:HabitManager.App.ViewModels"
+    xmlns:controls="using:HabitManager.App.Controls"
     x:Class="HabitManager.App.Views.HabitEditPage"
     x:DataType="viewModels:HabitEditViewModel"
     Title="Habit editing">
+    
+    <ContentPage.ToolbarItems>
+        <controls:ThemeToolbarItem />
+    </ContentPage.ToolbarItems>
 
     <ScrollView>
         <VerticalStackLayout Padding="20"

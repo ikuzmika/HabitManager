@@ -21,6 +21,10 @@ public class HabitDetailsViewModel : INotifyPropertyChanged
     
     private bool _isSaving;
     
+    public bool CanEdit =>
+        !_isSaving &&
+        SelectedHabit.Status == HabitStatus.Active;
+    
     public string ErrorMessage { get; private set; } = "";
 
     public string CompletedToday
@@ -148,6 +152,10 @@ public class HabitDetailsViewModel : INotifyPropertyChanged
         PropertyChanged?.Invoke(
             this,
             new PropertyChangedEventArgs(nameof(CompletionButtonText)));
+        
+        PropertyChanged?.Invoke(
+            this,
+            new PropertyChangedEventArgs(nameof(CanEdit)));
 
         ((Command)CompleteTodayCommand).ChangeCanExecute();
         ((Command)ArchiveCommand).ChangeCanExecute();

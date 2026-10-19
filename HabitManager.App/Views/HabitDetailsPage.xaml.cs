@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HabitManager.App.ViewModels;
+﻿using HabitManager.App.ViewModels;
 using HabitManager.Domain;
 
 namespace HabitManager.App.Views;
@@ -19,11 +14,18 @@ public partial class HabitDetailsPage : ContentPage
     
     private async void OnEditClicked(object? sender, EventArgs e)
     {
-        if (BindingContext is HabitDetailsViewModel viewModel)
+        if (BindingContext is not HabitDetailsViewModel viewModel)
         {
-            await Navigation.PushAsync(
-                new HabitEditPage(viewModel.SelectedHabit));
+            return;
         }
+
+        if (!viewModel.CanEdit)
+        {
+            return;
+        }
+
+        await Navigation.PushAsync(
+            new HabitEditPage(viewModel.SelectedHabit));
     }
     
     protected override void OnAppearing()

@@ -5,18 +5,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewModels="clr-namespace:HabitManager.App.ViewModels"
     xmlns:domain="clr-namespace:HabitManager.Domain;assembly=HabitManager.Domain"
+    xmlns:controls="clr-namespace:HabitManager.App.Controls"
     x:Class="HabitManager.App.Views.ArchivedHabitsPage"
     x:DataType="viewModels:ArchivedHabitsViewModel"
     Title="Archived habits">
+    
+    <ContentPage.ToolbarItems>
+        <controls:ThemeToolbarItem />
+    </ContentPage.ToolbarItems>
 
     <Grid Padding="20"
           RowDefinitions="Auto,*"
           RowSpacing="16">
-
-        <Label
-            Text="Archived habits"
-            FontSize="28"
-            FontAttributes="Bold" />
 
         <CollectionView
             Grid.Row="1"
