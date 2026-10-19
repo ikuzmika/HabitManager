@@ -52,11 +52,8 @@ public class HabitDetailsViewModel : INotifyPropertyChanged
 
     private bool CanCompleteToday()
     {
-        DateOnly today = DateOnly.FromDateTime(DateTime.Today);
-
         return !_isSaving &&
-               SelectedHabit.Status == HabitStatus.Active &&
-               !SelectedHabit.IsCompletedOn(today);
+               SelectedHabit.Status == HabitStatus.Active;
     }
 
     private bool CanArchive()
@@ -74,8 +71,17 @@ public class HabitDetailsViewModel : INotifyPropertyChanged
 
         DateOnly today = DateOnly.FromDateTime(DateTime.Today);
 
-        await ApplyAndSaveAsync(
-            () => SelectedHabit.Complete(today));
+        await ApplyAndSaveAsync(() =>
+        {
+            if (SelectedHabit.IsCompletedOn(today))
+            {
+                SelectedHabit.UndoCompletion(today);
+            }
+            else
+            {
+                SelectedHabit.Complete(today);
+            }
+        });
     }
 
     private async Task ArchiveHabitAsync()
@@ -138,8 +144,22 @@ public class HabitDetailsViewModel : INotifyPropertyChanged
         PropertyChanged?.Invoke(
             this,
             new PropertyChangedEventArgs(nameof(StatusText)));
+        
+        PropertyChanged?.Invoke(
+            this,
+            new PropertyChangedEventArgs(nameof(CompletionButtonText)));
 
         ((Command)CompleteTodayCommand).ChangeCanExecute();
         ((Command)ArchiveCommand).ChangeCanExecute();
+    }
+    
+    public string CompletionButtonText
+    {
+        get
+        {
+            DateOnly today = DateOnly.FromDateTime(DateTime.Today);
+
+            return SelectedHabit.IsCompletedOn(today) ? "Undo today's completion" : "Mark as completed today";
+        }
     }
 }

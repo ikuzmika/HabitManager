@@ -32,7 +32,7 @@
                 Text="{Binding CompletedToday}" />
             
             <Button
-                Text="Mark as completed"
+                Text="{Binding CompletionButtonText}"
                 Command="{Binding CompleteTodayCommand}" />
             
             <Label

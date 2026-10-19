@@ -11,7 +11,7 @@ public class HabitListViewModel : INotifyPropertyChanged
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    public ObservableCollection<Habit> Habits { get; private set; } = [];
+    public ObservableCollection<HabitListItemViewModel> Habits { get; private set; } = [];
 
     public HabitListViewModel(HabitService habitService)
     {
@@ -27,13 +27,16 @@ public class HabitListViewModel : INotifyPropertyChanged
 
     public void Refresh()
     {
-        ObservableCollection<Habit> visibleHabits = [];
+        ObservableCollection<HabitListItemViewModel> visibleHabits = [];
 
-        foreach (var habit in _habitService.Habits)
+        foreach (Habit habit in _habitService.Habits)
         {
             if (habit is { UserId: "demo-user-1", Status: HabitStatus.Active })
             {
-                visibleHabits.Add(habit);
+                HabitListItemViewModel item =
+                    new HabitListItemViewModel(habit);
+
+                visibleHabits.Add(item);
             }
         }
 

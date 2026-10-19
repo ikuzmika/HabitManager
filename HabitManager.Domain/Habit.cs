@@ -76,7 +76,7 @@ public class Habit
         UpdatedAt = DateTimeOffset.UtcNow;
     }
 
-    public void Complete(DateOnly date)
+    public void Complete(DateOnly date) // Metode priekš ieraduma izpildes atzīmēšanas
     {
         if (Status == HabitStatus.Archived)
         {
@@ -93,6 +93,24 @@ public class Habit
         HabitCompletion completion = new HabitCompletion(Id, date);
         
         _completions.Add(completion);
+    }
+    
+    public void UndoCompletion(DateOnly date) // Metode priekš izpildes atcelšanas 
+    {
+        if (Status == HabitStatus.Archived)
+        {
+            throw new InvalidOperationException(
+                "Cannot change completions of an archived habit.");
+        }
+
+        for (var i = 0; i < _completions.Count; i++)
+        {
+            if (_completions[i].Date == date)
+            {
+                _completions.RemoveAt(i);
+                return;
+            }
+        }
     }
 
     public bool IsCompletedOn(DateOnly date) // Metode, lai pārbaudītu ieraduma izpildes datumu

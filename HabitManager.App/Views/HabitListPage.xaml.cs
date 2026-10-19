@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using HabitManager.App.ViewModels;
-using HabitManager.Domain;
+﻿using HabitManager.App.ViewModels;
 
 namespace HabitManager.App.Views;
 
@@ -18,7 +12,9 @@ public partial class HabitListPage : ContentPage
         BindingContext = new HabitListViewModel(App.HabitService);
     }
 
-    private async void OnHabitSelected(object? sender, SelectionChangedEventArgs e)
+    private async void OnHabitSelected(
+        object? sender,
+        SelectionChangedEventArgs e)
     {
         if (e.CurrentSelection.Count == 0)
         {
@@ -30,11 +26,15 @@ public partial class HabitListPage : ContentPage
             return;
         }
 
-        Habit selectedHabit = (Habit)e.CurrentSelection[0];
-        
+        if (e.CurrentSelection[0] is not HabitListItemViewModel item)
+        {
+            return;
+        }
+
         collectionView.SelectedItem = null;
 
-        await Navigation.PushAsync(new HabitDetailsPage(selectedHabit));
+        await Navigation.PushAsync(
+            new HabitDetailsPage(item.Habit));
     }
     
     protected override async void OnAppearing()

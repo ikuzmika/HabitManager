@@ -4,7 +4,6 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:viewModels="clr-namespace:HabitManager.App.ViewModels"
-    xmlns:domain="clr-namespace:HabitManager.Domain;assembly=HabitManager.Domain"
     x:Class="HabitManager.App.Views.HabitListPage"
     x:DataType="viewModels:HabitListViewModel"
     Title="My habits">
@@ -14,7 +13,7 @@
           RowSpacing="16">
 
         <Label
-            Text="My habits"
+            Text="demo-user-1 habits"
             FontSize="28"
             FontAttributes="Bold" />
         
@@ -36,7 +35,7 @@
             EmptyView="There are no active habits.">
 
             <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="domain:Habit">
+                <DataTemplate x:DataType="viewModels:HabitListItemViewModel">
 
                     <VerticalStackLayout Padding="0,10"
                                          Spacing="4">
@@ -49,6 +48,11 @@
                         <Label
                             Text="{Binding Description}"
                             FontSize="14" />
+                        
+                        <Label
+                            Text="{Binding CompletionText}"
+                            FontSize="14"
+                            FontAttributes="Italic" />
 
                     </VerticalStackLayout>
 
