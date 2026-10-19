@@ -81,4 +81,11 @@ public partial class HabitListPage : ContentPage
                 new HabitCreatePage(viewModel));
         }
     }
+    
+    private async void OnArchivedHabitsClicked(
+        object? sender,
+        EventArgs e)
+    {
+        await Navigation.PushAsync(new ArchivedHabitsPage());
+    }
 }

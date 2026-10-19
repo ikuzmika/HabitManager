@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:HabitManager.App.ViewModels"
+    xmlns:domain="clr-namespace:HabitManager.Domain;assembly=HabitManager.Domain"
+    x:Class="HabitManager.App.Views.ArchivedHabitsPage"
+    x:DataType="viewModels:ArchivedHabitsViewModel"
+    Title="Archived habits">
+
+    <Grid Padding="20"
+          RowDefinitions="Auto,*"
+          RowSpacing="16">
+
+        <Label
+            Text="Archived habits"
+            FontSize="28"
+            FontAttributes="Bold" />
+
+        <CollectionView
+            Grid.Row="1"
+            ItemsSource="{Binding Habits}"
+            SelectionMode="None"
+            EmptyView="There are no archived habits.">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="domain:Habit">
+
+                    <Grid Padding="0,10"
+                          ColumnDefinitions="*,Auto"
+                          ColumnSpacing="12">
+
+                        <VerticalStackLayout Spacing="4">
+
+                            <Label
+                                Text="{Binding Name}"
+                                FontSize="20"
+                                FontAttributes="Bold" />
+
+                            <Label
+                                Text="{Binding Description}"
+                                FontSize="14" />
+
+                        </VerticalStackLayout>
+
+                        <Button
+                            Grid.Column="1"
+                            Text="Restore"
+                            Clicked="OnRestoreClicked"
+                            CommandParameter="{Binding .}"
+                            VerticalOptions="Center" />
+
+                    </Grid>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+    </Grid>
+
+</ContentPage>

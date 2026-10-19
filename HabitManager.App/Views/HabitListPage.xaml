@@ -10,7 +10,7 @@
     Title="My habits">
 
     <Grid Padding="20"
-          RowDefinitions="Auto,Auto,*"
+          RowDefinitions="Auto,Auto,Auto,*"
           RowSpacing="16">
 
         <Label
@@ -22,9 +22,14 @@
             Grid.Row="1"
             Text="Add new habit"
             Clicked="OnAddHabitClicked"/>
+        
+        <Button
+            Grid.Row="2"
+            Text="Archived habits"
+            Clicked="OnArchivedHabitsClicked" />
 
         <CollectionView
-            Grid.Row="2"
+            Grid.Row="3"
             ItemsSource="{Binding Habits}"
             SelectionMode="Single"
             SelectionChanged="OnHabitSelected"

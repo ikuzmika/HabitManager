@@ -64,6 +64,17 @@ public class Habit
         Status = HabitStatus.Archived;
         UpdatedAt = DateTimeOffset.UtcNow;
     }
+    
+    public void Unarchive() // Metode priekš ieraduma atarhivēšanas 
+    {
+        if (Status == HabitStatus.Active)
+        {
+            return;
+        }
+
+        Status = HabitStatus.Active;
+        UpdatedAt = DateTimeOffset.UtcNow;
+    }
 
     public void Complete(DateOnly date)
     {
@@ -131,7 +142,7 @@ public class Habit
         DateTimeOffset createdAt,
         DateTimeOffset updatedAt,
         HabitSchedule schedule,
-        IReadOnlyList<HabitCompletion> completions) // Metode priekš ieraduma atjaunošanas 
+        IReadOnlyList<HabitCompletion> completions) // Metode priekš ieraduma atjaunošanas no saglabātiem datiem
     {
         if (id == Guid.Empty)
         {
