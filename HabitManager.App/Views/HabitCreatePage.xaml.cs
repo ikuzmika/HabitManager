@@ -34,8 +34,27 @@ public partial class HabitCreatePage : ContentPage
         }
 
         _created = true;
+        Content.IsEnabled = false;
 
-        _listViewModel.AddHabit(habit);
+        try
+        {
+            await _listViewModel.AddHabitAsync(habit);
+        }
+        catch (Exception exception)
+        {
+            _created = false;
+
+            await DisplayAlertAsync(
+                "Unable to save the habit",
+                exception.Message,
+                "OK");
+
+            return;
+        }
+        finally
+        {
+            Content.IsEnabled = true;
+        }
 
         await Navigation.PopAsync();
     }

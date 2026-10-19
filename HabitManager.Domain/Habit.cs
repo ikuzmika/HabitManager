@@ -121,4 +121,62 @@ public class Habit
         
         return trimmedName;
     }
+    
+    public static Habit Restore( 
+        Guid id,
+        string userId,
+        string name,
+        string? description,
+        HabitStatus status,
+        DateTimeOffset createdAt,
+        DateTimeOffset updatedAt,
+        HabitSchedule schedule,
+        IReadOnlyList<HabitCompletion> completions) // Metode priekš ieraduma atjaunošanas 
+    {
+        if (id == Guid.Empty)
+        {
+            throw new ArgumentException(
+                "Habit ID must not be empty.", nameof(id));
+        }
+
+        if (status != HabitStatus.Active &&
+            status != HabitStatus.Archived)
+        {
+            throw new ArgumentException(
+                "Invalid habit status.", nameof(status));
+        }
+
+        ArgumentNullException.ThrowIfNull(schedule);
+
+        ArgumentNullException.ThrowIfNull(completions);
+
+        Habit habit = new Habit(userId, name, description);
+
+        habit.Id = id;
+        habit.Status = status;
+        habit.CreatedAt = createdAt;
+        habit.UpdatedAt = updatedAt;
+        habit.Schedule = schedule;
+
+        foreach (HabitCompletion completion in completions)
+        {
+            if (completion.HabitId != id)
+            {
+                throw new ArgumentException(
+                    "Completion belongs to another habit.",
+                    nameof(completions));
+            }
+
+            if (habit.IsCompletedOn(completion.Date))
+            {
+                throw new ArgumentException(
+                    "Habit has multiple completions on the same date.",
+                    nameof(completions));
+            }
+
+            habit._completions.Add(completion);
+        }
+
+        return habit;
+    }
 }

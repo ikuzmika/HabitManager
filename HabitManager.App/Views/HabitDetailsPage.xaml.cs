@@ -14,7 +14,7 @@ public partial class HabitDetailsPage : ContentPage
     {
         InitializeComponent();
         
-        BindingContext = new HabitDetailsViewModel(habit);
+        BindingContext = new HabitDetailsViewModel(habit, App.HabitService);
     }
     
     private async void OnEditClicked(object? sender, EventArgs e)

@@ -1,52 +1,53 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using HabitManager.App.Services;
 using HabitManager.Domain;
-using HabitManager.TestData;
 
 namespace HabitManager.App.ViewModels;
 
 public class HabitListViewModel : INotifyPropertyChanged
 {
+    private readonly HabitService _habitService;
+
     public event PropertyChangedEventHandler? PropertyChanged;
 
     public ObservableCollection<Habit> Habits { get; private set; } = [];
 
-    public HabitListViewModel()
+    public HabitListViewModel(HabitService habitService)
     {
-        DateOnly today = DateOnly.FromDateTime(DateTime.Today);
+        _habitService = habitService;
+    }
 
-        List<Habit> habits = TestDataFactory.Create(today);
+    public async Task LoadAsync()
+    {
+        await _habitService.InitializeAsync();
 
-        foreach (var habit in habits)
-        {
-            if (habit is { UserId: "demo-user-1", Status: HabitStatus.Active })
-            {
-                Habits.Add(habit);
-            }
-        }
+        Refresh();
     }
 
     public void Refresh()
     {
-        ObservableCollection<Habit> updatedHabits = [];
+        ObservableCollection<Habit> visibleHabits = [];
 
-        foreach (var habit in Habits)
+        foreach (var habit in _habitService.Habits)
         {
-            if (habit.Status == HabitStatus.Active)
+            if (habit is { UserId: "demo-user-1", Status: HabitStatus.Active })
             {
-                updatedHabits.Add(habit);
+                visibleHabits.Add(habit);
             }
         }
 
-        Habits = updatedHabits;
+        Habits = visibleHabits;
 
         PropertyChanged?.Invoke(
             this,
             new PropertyChangedEventArgs(nameof(Habits)));
     }
-    
-    public void AddHabit(Habit habit)
+
+    public async Task AddHabitAsync(Habit habit)
     {
-        Habits.Add(habit);
+        await _habitService.AddAsync(habit);
+
+        Refresh();
     }
 }

@@ -11,4 +11,5 @@ public class HabitDto
     public DateTimeOffset UpdatedAt { get; set; }
     
     public HabitScheduleDto Schedule { get; set; } = new();
+    public List<HabitCompletionDto> Completions { get; set; } = [];
 }

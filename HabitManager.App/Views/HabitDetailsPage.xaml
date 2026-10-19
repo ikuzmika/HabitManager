@@ -49,6 +49,10 @@
             <Button
                 Text="Edit"
                 Clicked="OnEditClicked" />
+            
+            <Label
+                Text="{Binding ErrorMessage}"
+                TextColor="Red" />
         </VerticalStackLayout>
     </ScrollView>
 

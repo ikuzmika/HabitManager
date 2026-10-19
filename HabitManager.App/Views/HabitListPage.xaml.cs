@@ -10,11 +10,12 @@ namespace HabitManager.App.Views;
 
 public partial class HabitListPage : ContentPage
 {
+    private bool _isLoading;
     public HabitListPage()
     {
         InitializeComponent();
 
-        BindingContext = new HabitListViewModel();
+        BindingContext = new HabitListViewModel(App.HabitService);
     }
 
     private async void OnHabitSelected(object? sender, SelectionChangedEventArgs e)
@@ -36,13 +37,39 @@ public partial class HabitListPage : ContentPage
         await Navigation.PushAsync(new HabitDetailsPage(selectedHabit));
     }
     
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
 
-        if (BindingContext is HabitListViewModel viewModel)
+        if (_isLoading)
         {
-            viewModel.Refresh();
+            return;
+        }
+
+        if (BindingContext is not HabitListViewModel viewModel)
+        {
+            return;
+        }
+
+        _isLoading = true;
+        Content.IsEnabled = false;
+
+        try
+        {
+            await viewModel.LoadAsync();
+
+            Content.IsEnabled = true;
+        }
+        catch (Exception exception)
+        {
+            await DisplayAlertAsync(
+                "Unable to load the data",
+                exception.Message,
+                "OK");
+        }
+        finally
+        {
+            _isLoading = false;
         }
     }
     
