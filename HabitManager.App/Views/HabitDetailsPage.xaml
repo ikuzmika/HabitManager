@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:HabitManager.App.ViewModels"
+    x:Class="HabitManager.App.Views.HabitDetailsPage"
+    x:DataType="viewModels:HabitDetailsViewModel"
+    Title="Habit details">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20"
+                             Spacing="12">
+
+            <Label
+                Text="{Binding SelectedHabit.Name}"
+                FontSize="28"
+                FontAttributes="Bold" />
+
+            <Label
+                Text="Description"
+                FontAttributes="Bold" />
+
+            <Label
+                Text="{Binding SelectedHabit.Description}" />
+
+            <Label
+                Text="Completed today"
+                FontAttributes="Bold" />
+
+            <Label
+                Text="{Binding CompletedToday}" />
+            
+            <Button
+                Text="Mark as completed"
+                Command="{Binding CompleteTodayCommand}" />
+            
+            <Label
+                Text="Status"
+                FontAttributes="Bold" />
+
+            <Label
+                Text="{Binding StatusText}" />
+
+            <Button
+                Text="Archive"
+                Command="{Binding ArchiveCommand}" />
+
+            <Button
+                Text="Edit"
+                Clicked="OnEditClicked" />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("HabitManager.DataModels")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b3a0e24f2bd1d70c8f26d9e2119b2c91dc3ddee7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+27c1eeb51f0b6a73ea898c697a4702aa56949442")]
 [assembly: System.Reflection.AssemblyProductAttribute("HabitManager.DataModels")]
 [assembly: System.Reflection.AssemblyTitleAttribute("HabitManager.DataModels")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

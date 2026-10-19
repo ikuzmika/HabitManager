@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:HabitManager.App.ViewModels"
+    xmlns:domain="clr-namespace:HabitManager.Domain;assembly=HabitManager.Domain"
+    x:Class="HabitManager.App.Views.HabitListPage"
+    x:DataType="viewModels:HabitListViewModel"
+    Title="My habits">
+
+    <Grid Padding="20"
+          RowDefinitions="Auto,Auto,*"
+          RowSpacing="16">
+
+        <Label
+            Text="My habits"
+            FontSize="28"
+            FontAttributes="Bold" />
+        
+        <Button
+            Grid.Row="1"
+            Text="Add new habit"
+            Clicked="OnAddHabitClicked"/>
+
+        <CollectionView
+            Grid.Row="2"
+            ItemsSource="{Binding Habits}"
+            SelectionMode="Single"
+            SelectionChanged="OnHabitSelected"
+            EmptyView="There are no active habits.">
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="domain:Habit">
+
+                    <VerticalStackLayout Padding="0,10"
+                                         Spacing="4">
+
+                        <Label
+                            Text="{Binding Name}"
+                            FontSize="20"
+                            FontAttributes="Bold" />
+
+                        <Label
+                            Text="{Binding Description}"
+                            FontSize="14" />
+
+                    </VerticalStackLayout>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+    </Grid>
+
+</ContentPage>

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BongoStickerState">
+    <option name="XDip" value="1058" />
+    <option name="YDip" value="939" />
     <option name="designId" value="nerd" />
   </component>
 </project>

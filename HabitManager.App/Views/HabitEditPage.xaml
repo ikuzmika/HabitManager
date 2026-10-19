@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewModels="clr-namespace:HabitManager.App.ViewModels"
+    x:Class="HabitManager.App.Views.HabitEditPage"
+    x:DataType="viewModels:HabitEditViewModel"
+    Title="Habit editing">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20"
+                             Spacing="12">
+
+            <Label Text="Name" />
+
+            <Entry
+                Text="{Binding Name, Mode=TwoWay}"
+                Placeholder="Enter the name of the habit" />
+
+            <Label Text="Description" />
+
+            <Editor
+                Text="{Binding Description, Mode=TwoWay}"
+                Placeholder="Enter the description of the habit"
+                AutoSize="TextChanges"
+                MinimumHeightRequest="100" />
+
+            <Label
+                Text="{Binding ErrorMessage}"
+                TextColor="Red" />
+
+            <Button
+                Text="Save"
+                Clicked="OnSaveClicked" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
