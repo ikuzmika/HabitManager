@@ -25,6 +25,9 @@ public class HabitDetailsViewModel : INotifyPropertyChanged
         !_isSaving &&
         SelectedHabit.Status == HabitStatus.Active;
     
+    public string ScheduleText =>
+        HabitScheduleViewModel.Describe(SelectedHabit.Schedule);
+    
     public string ErrorMessage { get; private set; } = "";
 
     public string CompletedToday
@@ -137,6 +140,10 @@ public class HabitDetailsViewModel : INotifyPropertyChanged
     
     public void Refresh()
     {
+        PropertyChanged?.Invoke(
+            this,
+            new PropertyChangedEventArgs(nameof(ScheduleText)));
+        
         PropertyChanged?.Invoke(
             this,
             new PropertyChangedEventArgs(nameof(SelectedHabit)));

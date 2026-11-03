@@ -93,7 +93,7 @@
                         </Border.StrokeShape>
 
                         <Grid
-                            RowDefinitions="Auto,*,Auto"
+                            RowDefinitions="Auto,*,Auto,Auto"
                             RowSpacing="10">
 
                             <Label
@@ -114,6 +114,12 @@
 
                             <Label
                                 Grid.Row="2"
+                                Text="{Binding ScheduleText}"
+                                FontSize="14"
+                                LineBreakMode="WordWrap" />
+                            
+                            <Label
+                                Grid.Row="3"
                                 Text="{Binding CompletionText}"
                                 FontSize="13"
                                 FontAttributes="Bold"

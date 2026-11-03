@@ -9,6 +9,9 @@ public class HabitListItemViewModel
     public string Name => Habit.Name;
 
     public string? Description => Habit.Description;
+    
+    public string ScheduleText =>
+        HabitScheduleViewModel.Describe(Habit.Schedule);
 
     public string CompletionText
     {

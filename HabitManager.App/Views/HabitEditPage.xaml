@@ -32,6 +32,46 @@
                 MinimumHeightRequest="100" />
 
             <Label
+                Text="Frequency"
+                FontAttributes="Bold" />
+
+            <HorizontalStackLayout Spacing="12">
+                <Label
+                    Text="Every day"
+                    VerticalOptions="Center" />
+
+                <Switch
+                    IsToggled="{Binding Schedule.IsDaily, Mode=TwoWay}" />
+            </HorizontalStackLayout>
+
+            <VerticalStackLayout
+                IsVisible="{Binding Schedule.IsSelectedDays}"
+                Spacing="4">
+
+                <Label Text="Select the days:" />
+
+                <VerticalStackLayout
+                    BindableLayout.ItemsSource="{Binding Schedule.Days}">
+
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="viewModels:ScheduleDayViewModel">
+
+                            <HorizontalStackLayout Spacing="8">
+                                <CheckBox
+                                    IsChecked="{Binding IsSelected, Mode=TwoWay}" />
+
+                                <Label
+                                    Text="{Binding Name}"
+                                    VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+            
+            <Label
                 Text="{Binding ErrorMessage}"
                 TextColor="Red" />
 

@@ -9,6 +9,7 @@ public class HabitCreateViewModel : INotifyPropertyChanged
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
+    public HabitScheduleViewModel Schedule { get; } = new();
     public string Name { get; set; } = string.Empty;
 
     public string? Description { get; set; }
@@ -24,7 +25,10 @@ public class HabitCreateViewModel : INotifyPropertyChanged
     {
         try
         {
+            HabitSchedule schedule = Schedule.Build();
+
             Habit habit = new Habit(_userId, Name, Description);
+            habit.ChangeSchedule(schedule);
 
             ErrorMessage = string.Empty;
 

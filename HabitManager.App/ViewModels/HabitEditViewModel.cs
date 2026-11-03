@@ -11,6 +11,7 @@ public class HabitEditViewModel : INotifyPropertyChanged
 
     public event PropertyChangedEventHandler? PropertyChanged;
 
+    public HabitScheduleViewModel Schedule { get; }
     public string Name { get; set; }
 
     public string? Description { get; set; }
@@ -24,6 +25,7 @@ public class HabitEditViewModel : INotifyPropertyChanged
         _habit = habit;
         _habitService = habitService;
 
+        Schedule = new HabitScheduleViewModel(habit.Schedule);
         Name = habit.Name;
         Description = habit.Description;
     }
@@ -32,7 +34,10 @@ public class HabitEditViewModel : INotifyPropertyChanged
     {
         try
         {
+            HabitSchedule schedule = Schedule.Build();
+
             _habit.Update(Name, Description);
+            _habit.ChangeSchedule(schedule);
         }
         catch (ArgumentException exception)
         {
