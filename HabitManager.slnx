@@ -4,5 +4,6 @@
   <Project Path="HabitManager.Console/HabitManager.Console.csproj" />
   <Project Path="HabitManager.DataModels/HabitManager.DataModels.csproj" />
   <Project Path="HabitManager.Domain/HabitManager.Domain.csproj" />
+  <Project Path="HabitManager.Infrastructure/HabitManager.Infrastructure.csproj" />
   <Project Path="HabitManager.TestData/HabitManager.TestData.csproj" />
 </Solution>
