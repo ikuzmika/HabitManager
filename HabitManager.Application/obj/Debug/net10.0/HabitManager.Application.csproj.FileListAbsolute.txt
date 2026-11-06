@@ -1,0 +1,16 @@
+C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.Application\bin\Debug\net10.0\HabitManager.Application.deps.json
+C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.Application\bin\Debug\net10.0\HabitManager.Application.dll
+C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.Application\bin\Debug\net10.0\HabitManager.Application.pdb
+C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.Application\bin\Debug\net10.0\HabitManager.Domain.dll
+C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.Application\bin\Debug\net10.0\HabitManager.Domain.pdb
+C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.Application\obj\Debug\net10.0\HabitManager.Application.csproj.AssemblyReference.cache
+C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.Application\obj\Debug\net10.0\HabitManager.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.Application\obj\Debug\net10.0\HabitManager.Application.AssemblyInfoInputs.cache
+C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.Application\obj\Debug\net10.0\HabitManager.Application.AssemblyInfo.cs
+C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.Application\obj\Debug\net10.0\HabitManager.Application.csproj.CoreCompileInputs.cache
+C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.Application\obj\Debug\net10.0\HabitManager.Application.sourcelink.json
+C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.Application\obj\Debug\net10.0\HabitMan.73767F56.Up2Date
+C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.Application\obj\Debug\net10.0\HabitManager.Application.dll
+C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.Application\obj\Debug\net10.0\refint\HabitManager.Application.dll
+C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.Application\obj\Debug\net10.0\HabitManager.Application.pdb
+C:\Users\ikuzm\RiderProjects\HabitManager\HabitManager.Application\obj\Debug\net10.0\ref\HabitManager.Application.dll

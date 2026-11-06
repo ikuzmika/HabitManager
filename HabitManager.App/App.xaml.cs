@@ -26,7 +26,13 @@ public partial class App : Application
         return new Window(new AppShell());
     }
     
+    private static readonly HttpClient ApiHttpClient = new()
+    {
+        BaseAddress = new Uri("https://localhost:7248/"),
+        Timeout = TimeSpan.FromSeconds(15)
+    };
+
     public static HabitService HabitService { get; } =
-        new HabitService(new JsonHabitStorage());
+        new HabitService(new HabitApiClient(ApiHttpClient));
     
 }

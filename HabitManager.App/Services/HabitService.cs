@@ -1,84 +1,117 @@
-﻿using HabitManager.Domain;
-using HabitManager.TestData;
+﻿using HabitManager.App.Mapping;
+using HabitManager.DataModels;
+using HabitManager.Domain;
 
 namespace HabitManager.App.Services;
 
-// Glabā ieradumus atmiņā, sagatavo datus, izsauc saglabāšanu 
 public class HabitService
 {
-    private readonly IHabitStorage _storage;
-
+    private readonly HabitApiClient _apiClient;
     private readonly List<Habit> _habits = [];
-
-    private bool _isInitialized;
 
     public IReadOnlyList<Habit> Habits => _habits.AsReadOnly();
 
-    public HabitService(IHabitStorage storage)
+    public HabitService(HabitApiClient apiClient)
     {
-        _storage = storage;
+        _apiClient = apiClient;
     }
 
     public async Task InitializeAsync()
     {
-        if (_isInitialized)
-        {
-            return;
-        }
+        var habitDtos = await _apiClient.GetAllAsync();
 
-        List<Habit>? loadedHabits = await _storage.LoadAsync();
-
-        if (loadedHabits == null)
-        {
-            DateOnly today = DateOnly.FromDateTime(DateTime.Today);
-
-            loadedHabits = TestDataFactory.Create(today);
-
-            await _storage.SaveAsync(loadedHabits);
-        }
+        // Vispirms pārveidojam visus saņemtos datus.
+        var loadedHabits = habitDtos
+            .Select(HabitMapper.ToDomain)
+            .ToList();
 
         _habits.Clear();
         _habits.AddRange(loadedHabits);
-
-        _isInitialized = true;
-    }
-
-    public async Task SaveAsync()
-    {
-        EnsureInitialized();
-
-        await _storage.SaveAsync(_habits);
     }
 
     public async Task AddAsync(Habit habit)
     {
-        EnsureInitialized();
+        var dto = HabitMapper.ToDto(habit);
 
-        if (_habits.Any(existingHabit => existingHabit.Id == habit.Id))
+        var request = new CreateHabitRequest
         {
-            throw new InvalidOperationException(
-                "A habit with this ID already exists.");
+            UserId = habit.UserId,
+            Name = habit.Name,
+            Description = habit.Description,
+            Schedule = dto.Schedule
+        };
+
+        var createdDto = await _apiClient.CreateAsync(request);
+
+        var createdHabit = HabitMapper.ToDomain(createdDto);
+
+        _habits.Add(createdHabit);
+    }
+    
+    public async Task UpdateAsync(
+        Guid id,
+        string name,
+        string? description,
+        HabitSchedule schedule)
+    {
+        var request = new UpdateHabitRequest
+        {
+            Id = id,
+            Name = name,
+            Description = description,
+            Schedule = new HabitScheduleDto
+            {
+                IsDaily = schedule.Type == HabitScheduleType.Daily,
+                Days = schedule.Days.ToList()
+            }
+        };
+
+        var updatedDto = await _apiClient.UpdateAsync(request);
+        var updatedHabit = HabitMapper.ToDomain(updatedDto);
+
+        int index = _habits.FindIndex(habit => habit.Id == id);
+
+        if (index >= 0)
+        {
+            _habits[index] = updatedHabit;
         }
-
-        _habits.Add(habit);
-
-        try
+        else
         {
-            await SaveAsync();
-        }
-        catch
-        {
-            _habits.Remove(habit);
-            throw;
+            _habits.Add(updatedHabit);
         }
     }
-
-    private void EnsureInitialized()
+    
+    public async Task CompleteAsync(Guid id, DateOnly date)
     {
-        if (!_isInitialized)
+        await _apiClient.CompleteAsync(id, date);
+        await ReloadAfterChangeAsync();
+    }
+
+    public async Task UndoCompletionAsync(Guid id, DateOnly date)
+    {
+        await _apiClient.UndoCompletionAsync(id, date);
+        await ReloadAfterChangeAsync();
+    }
+
+    public async Task SetArchivedAsync(Guid id, bool isArchived)
+    {
+        await _apiClient.SetArchivedAsync(id, isArchived);
+        await ReloadAfterChangeAsync();
+    }
+
+    private async Task ReloadAfterChangeAsync()
+    {
+        try
+        {
+            await InitializeAsync();
+        }
+        catch (Exception exception)
         {
             throw new InvalidOperationException(
-                "Habit data has not been loaded yet.");
+                "The change was saved, but the updated data could not be loaded. " +
+                "Return to the habit list to reload it. " +
+                exception.Message,
+                exception);
         }
     }
 }

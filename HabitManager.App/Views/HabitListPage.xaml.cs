@@ -58,8 +58,6 @@ public partial class HabitListPage : ContentPage
         try
         {
             await viewModel.LoadAsync();
-
-            Content.IsEnabled = true;
         }
         catch (Exception exception)
         {
@@ -70,6 +68,7 @@ public partial class HabitListPage : ContentPage
         }
         finally
         {
+            Content.IsEnabled = true;
             _isLoading = false;
         }
     }

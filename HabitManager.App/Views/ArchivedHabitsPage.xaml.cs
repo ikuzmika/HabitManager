@@ -18,11 +18,27 @@ public partial class ArchivedHabitsPage : ContentPage
         BindingContext = _viewModel;
     }
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
 
-        _viewModel.Refresh();
+        Content.IsEnabled = false;
+
+        try
+        {
+            await _viewModel.LoadAsync();
+        }
+        catch (Exception exception)
+        {
+            await DisplayAlertAsync(
+                "Unable to load archived habits",
+                exception.Message,
+                "OK");
+        }
+        finally
+        {
+            Content.IsEnabled = true;
+        }
     }
 
     private async void OnRestoreClicked(object? sender, EventArgs e)
@@ -48,9 +64,7 @@ public partial class ArchivedHabitsPage : ContentPage
         catch (Exception exception)
         {
             await DisplayAlertAsync(
-                "Could not save changes",
-                "The habit may be active in memory, but the change " +
-                "was not saved. Try Restore again. " +
+                "Could not restore the habit",
                 exception.Message,
                 "OK");
         }

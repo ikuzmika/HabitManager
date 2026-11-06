@@ -36,31 +36,20 @@ public class HabitEditViewModel : INotifyPropertyChanged
         {
             HabitSchedule schedule = Schedule.Build();
 
-            _habit.Update(Name, Description);
-            _habit.ChangeSchedule(schedule);
+            await _habitService.UpdateAsync(
+                _habit.Id,
+                Name,
+                Description,
+                schedule);
+
+            SetError("");
+            return true;
         }
-        catch (ArgumentException exception)
+        catch (Exception exception)
         {
             SetError(exception.Message);
             return false;
         }
-
-        try
-        {
-            await _habitService.SaveAsync();
-        }
-        catch (Exception exception)
-        {
-            SetError(
-                "Changes have been made in the app’s memory, " +
-                "but they could not be saved to a file. Please try saving again. " +
-                exception.Message);
-
-            return false;
-        }
-
-        SetError("");
-        return true;
     }
 
     private void SetError(string message)

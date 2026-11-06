@@ -9,7 +9,7 @@ public class HabitDetailsViewModel : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
 
-    public Habit SelectedHabit { get; }
+    public Habit SelectedHabit { get; private set; }
 
     public ICommand CompleteTodayCommand { get; }
     
@@ -78,15 +78,17 @@ public class HabitDetailsViewModel : INotifyPropertyChanged
 
         DateOnly today = DateOnly.FromDateTime(DateTime.Today);
 
-        await ApplyAndSaveAsync(() =>
+        await ApplyAndSaveAsync(async () =>
         {
             if (SelectedHabit.IsCompletedOn(today))
             {
-                SelectedHabit.UndoCompletion(today);
+                await _habitService.UndoCompletionAsync(
+                    SelectedHabit.Id, today);
             }
             else
             {
-                SelectedHabit.Complete(today);
+                await _habitService.CompleteAsync(
+                    SelectedHabit.Id, today);
             }
         });
     }
@@ -98,12 +100,17 @@ public class HabitDetailsViewModel : INotifyPropertyChanged
             return;
         }
 
-        await ApplyAndSaveAsync(
-            () => SelectedHabit.Archive());
+        await ApplyAndSaveAsync(() =>
+            _habitService.SetArchivedAsync(SelectedHabit.Id, true));
     }
     
-    private async Task ApplyAndSaveAsync(Action change)
+    private async Task ApplyAndSaveAsync(Func<Task> change)
     {
+        if (_isSaving)
+        {
+            return;
+        }
+
         _isSaving = true;
         ErrorMessage = "";
 
@@ -115,17 +122,11 @@ public class HabitDetailsViewModel : INotifyPropertyChanged
 
         try
         {
-            change();
-
-            await _habitService.SaveAsync();
+            await change();
         }
         catch (Exception exception)
         {
-            ErrorMessage =
-                "The operation could not be completed." +
-                " If the changes are already visible on the screen," +
-                " they may not yet have been saved to the file." +
-                exception.Message;
+            ErrorMessage = exception.Message;
 
             PropertyChanged?.Invoke(
                 this,
@@ -140,6 +141,14 @@ public class HabitDetailsViewModel : INotifyPropertyChanged
     
     public void Refresh()
     {
+        var updatedHabit = _habitService.Habits
+            .FirstOrDefault(habit => habit.Id == SelectedHabit.Id);
+
+        if (updatedHabit is not null)
+        {
+            SelectedHabit = updatedHabit;
+        }
+        
         PropertyChanged?.Invoke(
             this,
             new PropertyChangedEventArgs(nameof(ScheduleText)));

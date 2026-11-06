@@ -1,0 +1,77 @@
+﻿@baseUrl = https://localhost:7248
+@habitId = 82e6294b-2046-420e-a4c8-b160c4a07cdc
+### Iegūt ieradumu sarakstu
+GET {{baseUrl}}/api/habits
+Accept: application/json
+
+### Izveidot ieradumu
+POST {{baseUrl}}/api/habits
+Content-Type: application/json
+
+{
+  "name": "Read a book",
+  "description": "Read for 20 minutes",
+  "schedule": {
+    "isDaily": true,
+    "days": []
+  }
+}
+
+### Labot ieradumu un izvēlēties pirmdienu, trešdienu, piektdienu
+PUT {{baseUrl}}/api/habits/{{habitId}}
+Content-Type: application/json
+
+{
+  "name": "Read a book",
+  "description": "Read for 30 minutes",
+  "schedule": {
+    "isDaily": false,
+    "days": [1, 3, 5]
+  }
+}
+
+### Atzīmēt izpildi konkrētajā datumā
+POST {{baseUrl}}/api/habits/{{habitId}}/completions
+Content-Type: application/json
+
+{
+  "date": "2026-11-04"
+}
+
+### Apskatīt izpildes ierakstus
+GET {{baseUrl}}/api/habits/{{habitId}}/completions
+Accept: application/json
+
+### Apskatīt laboto ieradumu
+GET {{baseUrl}}/api/habits/{{habitId}}
+Accept: application/json
+
+### Arhivēt ieradumu
+PUT {{baseUrl}}/api/habits/{{habitId}}/archive
+
+### Mēģināt atzīmēt arhivētu ieradumu
+POST {{baseUrl}}/api/habits/{{habitId}}/completions
+Content-Type: application/json
+
+{
+  "date": "2026-11-05"
+}
+
+### Atjaunot ieradumu no arhīva
+DELETE {{baseUrl}}/api/habits/{{habitId}}/archive
+
+### Mēģināt izveidot ieradumu ar tukšu nosaukumu
+POST {{baseUrl}}/api/habits
+Content-Type: application/json
+
+{
+  "name": "   ",
+  "description": "Kļūdas pārbaude",
+  "schedule": {
+    "isDaily": true,
+    "days": []
+  }
+}
+
+### Pieprasīt neesošu ieradumu
+GET {{baseUrl}}/api/habits/00000000-0000-0000-0000-000000000000

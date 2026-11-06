@@ -36,10 +36,14 @@ public class ArchivedHabitsViewModel
                 "This habit belongs to another user.");
         }
 
-        habit.Unarchive();
+        await _habitService.SetArchivedAsync(habit.Id, false);
 
-        await _habitService.SaveAsync();
-
+        Refresh();
+    }
+    
+    public async Task LoadAsync()
+    {
+        await _habitService.InitializeAsync();
         Refresh();
     }
 }
