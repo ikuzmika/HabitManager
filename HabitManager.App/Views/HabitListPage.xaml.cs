@@ -13,29 +13,34 @@ public partial class HabitListPage : ContentPage
         BindingContext = new HabitListViewModel(App.HabitService);
     }
 
-    private async void OnHabitSelected(
-        object? sender,
-        SelectionChangedEventArgs e)
+    private bool _isOpeningHabit;
+
+    private async void OnHabitTapped(object? sender, TappedEventArgs e)
     {
-        if (e.CurrentSelection.Count == 0)
+        if (_isOpeningHabit ||
+            e.Parameter is not HabitListItemViewModel item)
         {
             return;
         }
 
-        if (sender is not CollectionView collectionView)
+        _isOpeningHabit = true;
+
+        try
         {
-            return;
+            await Navigation.PushAsync(
+                new HabitDetailsPage(item.Habit));
         }
-
-        if (e.CurrentSelection[0] is not HabitListItemViewModel item)
+        catch (Exception exception)
         {
-            return;
+            await DisplayAlertAsync(
+                "Unable to open habit",
+                exception.Message,
+                "OK");
         }
-
-        collectionView.SelectedItem = null;
-
-        await Navigation.PushAsync(
-            new HabitDetailsPage(item.Habit));
+        finally
+        {
+            _isOpeningHabit = false;
+        }
     }
     
     protected override async void OnAppearing()

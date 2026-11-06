@@ -56,8 +56,7 @@
         <CollectionView
             Grid.Row="1"
             ItemsSource="{Binding Habits}"
-            SelectionMode="Single"
-            SelectionChanged="OnHabitSelected"
+            SelectionMode="None"
             EmptyView="There are no active habits.">
 
             <CollectionView.ItemsLayout>
@@ -83,6 +82,10 @@
                                                           Dark=#25222D}">
 
                         <Border.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Tapped="OnHabitTapped"
+                                CommandParameter="{Binding .}" />
+
                             <PointerGestureRecognizer
                                 PointerEntered="OnHabitPointerEntered"
                                 PointerExited="OnHabitPointerExited" />

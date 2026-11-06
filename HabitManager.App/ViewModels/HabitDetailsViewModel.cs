@@ -11,7 +11,7 @@ public class HabitDetailsViewModel : INotifyPropertyChanged
 
     public Habit SelectedHabit { get; private set; }
 
-    public ICommand CompleteTodayCommand { get; }
+    public ICommand CompleteSelectedDateCommand { get; }
     
     public ICommand ArchiveCommand { get; }
 
@@ -29,14 +29,21 @@ public class HabitDetailsViewModel : INotifyPropertyChanged
         HabitScheduleViewModel.Describe(SelectedHabit.Schedule);
     
     public string ErrorMessage { get; private set; } = "";
+    
+    private DateTime? _selectedDate = DateTime.Today;
 
-    public string CompletedToday
+    public string CompletedOnSelectedDate
     {
         get
         {
-            DateOnly today = DateOnly.FromDateTime(DateTime.Today);
+            if (SelectedDate is not DateTime selectedDate)
+            {
+                return "Select a date";
+            }
 
-            return SelectedHabit.IsCompletedOn(today) ? "Yes" : "No";
+            DateOnly date = DateOnly.FromDateTime(selectedDate);
+
+            return SelectedHabit.IsCompletedOn(date) ? "Yes" : "No";
         }
     }
 
@@ -47,9 +54,9 @@ public class HabitDetailsViewModel : INotifyPropertyChanged
         SelectedHabit = habit;
         _habitService = habitService;
 
-        CompleteTodayCommand = new Command(
-            async () => await CompleteTodayAsync(),
-            CanCompleteToday);
+        CompleteSelectedDateCommand = new Command(
+            async () => await CompleteSelectedDateAsync(),
+            CanCompleteSelectedDate);
 
         ArchiveCommand = new Command(
             async () => await ArchiveHabitAsync(),
@@ -57,9 +64,10 @@ public class HabitDetailsViewModel : INotifyPropertyChanged
     }
     
 
-    private bool CanCompleteToday()
+    private bool CanCompleteSelectedDate()
     {
         return !_isSaving &&
+               SelectedDate.HasValue &&
                SelectedHabit.Status == HabitStatus.Active;
     }
 
@@ -69,26 +77,27 @@ public class HabitDetailsViewModel : INotifyPropertyChanged
                SelectedHabit.Status == HabitStatus.Active;
     }
 
-    private async Task CompleteTodayAsync()
+    private async Task CompleteSelectedDateAsync()
     {
-        if (!CanCompleteToday())
+        if (!CanCompleteSelectedDate() ||
+            SelectedDate is not DateTime selectedDate)
         {
             return;
         }
 
-        DateOnly today = DateOnly.FromDateTime(DateTime.Today);
+        DateOnly date = DateOnly.FromDateTime(selectedDate);
 
         await ApplyAndSaveAsync(async () =>
         {
-            if (SelectedHabit.IsCompletedOn(today))
+            if (SelectedHabit.IsCompletedOn(date))
             {
                 await _habitService.UndoCompletionAsync(
-                    SelectedHabit.Id, today);
+                    SelectedHabit.Id, date);
             }
             else
             {
                 await _habitService.CompleteAsync(
-                    SelectedHabit.Id, today);
+                    SelectedHabit.Id, date);
             }
         });
     }
@@ -159,7 +168,7 @@ public class HabitDetailsViewModel : INotifyPropertyChanged
 
         PropertyChanged?.Invoke(
             this,
-            new PropertyChangedEventArgs(nameof(CompletedToday)));
+            new PropertyChangedEventArgs(nameof(CompletedOnSelectedDate)));
 
         PropertyChanged?.Invoke(
             this,
@@ -173,7 +182,7 @@ public class HabitDetailsViewModel : INotifyPropertyChanged
             this,
             new PropertyChangedEventArgs(nameof(CanEdit)));
 
-        ((Command)CompleteTodayCommand).ChangeCanExecute();
+        ((Command)CompleteSelectedDateCommand).ChangeCanExecute();
         ((Command)ArchiveCommand).ChangeCanExecute();
     }
     
@@ -181,9 +190,42 @@ public class HabitDetailsViewModel : INotifyPropertyChanged
     {
         get
         {
-            DateOnly today = DateOnly.FromDateTime(DateTime.Today);
+            if (SelectedDate is not DateTime selectedDate)
+            {
+                return "Select a date";
+            }
 
-            return SelectedHabit.IsCompletedOn(today) ? "Undo today's completion" : "Mark as completed today";
+            DateOnly date = DateOnly.FromDateTime(selectedDate);
+
+            return SelectedHabit.IsCompletedOn(date)
+                ? "Undo completion for selected date"
+                : "Mark as completed for selected date";
+        }
+    }
+    
+    public DateTime? SelectedDate
+    {
+        get => _selectedDate;
+        set
+        {
+            if (_selectedDate == value)
+            {
+                return;
+            }
+
+            _selectedDate = value;
+
+            PropertyChanged?.Invoke(
+                this,
+                new PropertyChangedEventArgs(nameof(SelectedDate)));
+
+            ErrorMessage = "";
+
+            PropertyChanged?.Invoke(
+                this,
+                new PropertyChangedEventArgs(nameof(ErrorMessage)));
+
+            Refresh();
         }
     }
 }

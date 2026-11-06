@@ -59,10 +59,19 @@
 
                     <VerticalStackLayout Spacing="6">
                         <Label
-                            Text="Completed today"
+                            Text="Completion date"
                             FontAttributes="Bold" />
 
-                        <Label Text="{Binding CompletedToday}" />
+                        <DatePicker
+                            Date="{Binding SelectedDate, Mode=TwoWay}"
+                            Format="dd.MM.yyyy"
+                            IsEnabled="{Binding CanEdit}" />
+
+                        <Label
+                            Text="Completed on selected date"
+                            FontAttributes="Bold" />
+
+                        <Label Text="{Binding CompletedOnSelectedDate}" />
                     </VerticalStackLayout>
 
                     <VerticalStackLayout Spacing="6">
@@ -105,7 +114,7 @@
 
                 <Button
                     Text="{Binding CompletionButtonText}"
-                    Command="{Binding CompleteTodayCommand}"
+                    Command="{Binding CompleteSelectedDateCommand}"
                     Margin="0,0,10,10" />
 
                 <Button
