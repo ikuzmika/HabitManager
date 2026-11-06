@@ -71,7 +71,4 @@ Visi lietotnes klienti strādā ar šī paša demonstrācijas lietotāja datiem.
 ## Ierobežojumi
 
 - Lietotnei nepieciešams sasniedzams API.
-- Offline režīms un sinhronizācija nav ieviesta.
-- Pašreizējās adreses paredzētas lokālai izstrādei.
-- Publiskai izvietošanai nepieciešama servera HTTPS adrese,
-  atbilstoša konfigurācija un autentifikācija.
+- Offline režīms un sinhronizācija vēl nav ieviesti.
